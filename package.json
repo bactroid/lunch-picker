@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/bactroid/lunch-picker.git"
   },
+  "standard": {
+    "env": "jest"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
