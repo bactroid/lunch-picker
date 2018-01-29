@@ -16,7 +16,7 @@ describe('readRestaurants', () => {
     const error = {status: 'exploded'}
 
     const readFile = (file, enc) =>
-          Promise.resolve(file === '../restaurants.json' && enc === 'utf-8' ? expected : error)
+          Promise.resolve(file === 'restaurants.json' && enc === 'utf-8' ? expected : error)
 
     picker.readRestaurants(readFile)
       .then(actual => {
