@@ -1,0 +1,20 @@
+{
+  "name": "lunch-picker",
+  "version": "1.0.0",
+  "description": "Slack app that picks a restaurant to eat at",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bactroid/lunch-picker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bactroid/lunch-picker/issues"
+  },
+  "homepage": "https://github.com/bactroid/lunch-picker#readme"
+}
