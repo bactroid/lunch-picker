@@ -10,11 +10,22 @@ const readRestaurants = async (read = readFile) => {
   return restaurants
 }
 
-const getRandomRestaurant = async () =>
-  selectRandom(JSON.parse(await readRestaurants()))
+const getRandomRestaurant = async () => {
+  const restaurants = JSON.parse(await readRestaurants())
+  return selectRandom(restaurants.filter(openToday(getDay(new Date()))))
+}
+
+const getDay = date => {
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  return days[date.getDay()]
+}
+
+const openToday = day => restaurant => restaurant.closed.find(x => x === day) === undefined
 
 module.exports = {
   selectRandom,
   readRestaurants,
-  getRandomRestaurant
+  getRandomRestaurant,
+  getDay,
+  openToday
 }
