@@ -9,21 +9,6 @@ describe('selectRandom', () => {
   })
 })
 
-describe('readRestaurants', () => {
-  test('Reads in contents of file', () => {
-    const expected = ['El Indio', 'La Pasadita', 'Steamers']
-    const error = {status: 'exploded'}
-
-    const readFile = (file, enc) =>
-          Promise.resolve(file === 'restaurants.json' && enc === 'utf-8' ? expected : error)
-
-    picker.readRestaurants(readFile)
-      .then(actual => {
-        expect(actual).toEqual(expected)
-      })
-  })
-})
-
 describe('getDay', () => {
   test('returns Thursday for 2018-07-05T14:49:42.064Z', () => {
     const day = new Date('2018-07-05T14:49:42.064Z')

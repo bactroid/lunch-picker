@@ -46,7 +46,7 @@ functions:
     handler: handler.lunchpicker
     events:
       - http:
-          path: hello/get
+          path: lunch
           method: get
 
 plugins:
