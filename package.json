@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/bactroid/lunch-picker/issues"
   },
-  "homepage": "https://github.com/bactroid/lunch-picker#readme"
+  "homepage": "https://github.com/bactroid/lunch-picker#readme",
+  "dependencies": {
+    "serverless-offline": "^3.25.5"
+  }
 }
