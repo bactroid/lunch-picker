@@ -42,7 +42,7 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
+  lunchpicker:
     handler: handler.lunchpicker
     events:
       - http:
