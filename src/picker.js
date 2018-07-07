@@ -19,6 +19,7 @@ const restaurants = [
   {name: 'Indian Cuisine', closed: ['Monday'], veto: []},
   {name: 'Liquid Ginger', closed: ['Monday'], veto: []},
   {name: 'Andaz', closed: ['Monday'], veto: []},
+  {name: 'Mojo Hogtown BBQ', closed: ['Monday'], veto: []},
   {name: 'Flaco\'s', closed: ['Monday'], veto: []}
 ]
 

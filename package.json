@@ -1,6 +1,6 @@
 {
   "name": "lunch-picker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Slack app that picks a restaurant to eat at",
   "main": "index.js",
   "scripts": {
