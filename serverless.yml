@@ -48,6 +48,9 @@ functions:
       - http:
           path: lunch
           method: get
+      - http:
+          path: lunch
+          method: post
 
 plugins:
   - serverless-offline
