@@ -20,7 +20,8 @@ const restaurants = [
   {name: 'Liquid Ginger', closed: ['Monday'], veto: []},
   {name: 'Andaz', closed: ['Monday'], veto: []},
   {name: 'Mojo Hogtown BBQ', closed: ['Monday'], veto: []},
-  {name: 'Flaco\'s', closed: ['Monday'], veto: []}
+  {name: 'Flaco\'s', closed: ['Monday'], veto: []},
+  {name: 'Gyro Plus', closed: ['Sunday'], veto: []}
 ]
 
 const getRandomIndex = arr => Math.floor((Math.random() * arr.length))
