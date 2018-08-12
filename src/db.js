@@ -1,4 +1,4 @@
-const {prop} = require('ramda')
+const {prop, composeP} = require('ramda')
 const AWS = require('aws-sdk')
 const client = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'})
 
@@ -16,7 +16,7 @@ const clientScan = table => {
 }
 
 // getRestaurants :: TableName -> Promise [Restaurants]
-const getRestaurants = async table => prop('Items', await clientScan(table))
+const getRestaurants = composeP(prop('Items'), clientScan)
 
 module.exports = {
   getRestaurants
