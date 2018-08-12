@@ -1,5 +1,13 @@
 const {compose, filter} = require('ramda')
 
+// DayOfWeek :: String ( Monday | Tuesday | Wednesday | Thursday | Friday
+//                     | Saturday | Sunday)
+
+// Restaurant :: Object { name :: String
+//                      , closed :: [DayOfWeek]
+//                      , veto :: [String]
+//                      }
+
 // getRandomIndex :: [a] -> Number
 const getRandomIndex = arr => Math.floor((Math.random() * arr.length))
 
