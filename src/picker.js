@@ -1,24 +1,39 @@
+const {compose, filter} = require('ramda')
 const {getRestaurants} = require('./db')
+
+// getRandomIndex :: [a] -> Number
 const getRandomIndex = arr => Math.floor((Math.random() * arr.length))
+
+// selectRandom :: [a] -> a
 const selectRandom = arr => arr[getRandomIndex(arr)]
 
-const getRandomRestaurant = async () => {
-  const restaurants = await getRestaurants('lunch-picker-dev-restaurants')
-  const dayOfWeek = getDay(new Date())
-  if (dayOfWeek === 'Friday') return {name: 'Big Lou\'s'}
-  return selectRandom(restaurants.filter(openToday(dayOfWeek)))
-}
+// getRandomRestaurant :: () -> Restaurant
+const getRandomRestaurant = async () =>
+  today === 'Friday'
+    ? {name: 'Big Lou\'s'}
+    : selectRandomRestaurantOpenToday(await getRestaurants('lunch-picker-dev-restaurants'))
 
-const getDay = date => {
-  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-  return days[date.getDay()]
-}
+// days :: [DayOfWeek]
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
-const openToday = day => restaurant => restaurant.closed.find(x => x === day) === undefined
+// getDay :: Date -> DayOfWeek
+const getDay = date => days[date.getDay()]
+
+// today :: DayOfWeek
+const today = getDay(new Date())
+
+// openOnDay :: DayOfWeek -> Restaurant -> Boolean
+const openOnDay = day => restaurant => restaurant.closed.find(x => x === day) === undefined
+
+// openToday :: Restaurant -> Boolean
+const openToday = openOnDay(today)
+
+// selectRandomRestaurantOpenToday :: [Restaurant] -> Restaurant
+const selectRandomRestaurantOpenToday = compose(selectRandom, filter(openToday))
 
 module.exports = {
   selectRandom,
   getRandomRestaurant,
   getDay,
-  openToday
+  openOnDay
 }
