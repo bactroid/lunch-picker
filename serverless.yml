@@ -9,6 +9,7 @@ provider:
   runtime: nodejs8.10
   environment:
     LUNCH_TABLE: ${self:service}-${self:provider.stage}-restaurants
+    USER_TABLE: ${self:service}-${self:provider.stage}-users
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -110,6 +111,19 @@ resources:
             AttributeType: S
         KeySchema:
           - AttributeName: restaurantId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    usersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.USER_TABLE}
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
