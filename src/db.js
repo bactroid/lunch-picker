@@ -1,3 +1,4 @@
+const {prop} = require('ramda')
 const AWS = require('aws-sdk')
 const client = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'})
 
@@ -13,10 +14,7 @@ const clientScan = table => {
   })
 }
 
-const getRestaurants = async table => {
-  const result = await clientScan(table)
-  return result.Items
-}
+const getRestaurants = async table => prop('Items', await clientScan(table))
 
 module.exports = {
   getRestaurants
