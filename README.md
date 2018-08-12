@@ -7,7 +7,6 @@ excuse to play around with the serverless framework and AWS Lambda.
 
 ## Features I want to add
 
-* Integration with Dynamo DB instead of stupid hard-coded shit.
 * Ability to add and remove lunch places.
 * Possibly a GitHub pages app to serve as an alternate interface.
 * Veto lists based on lunch attendees.
