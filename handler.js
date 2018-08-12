@@ -10,6 +10,9 @@ const makeReply = text => ({
   })
 })
 
-module.exports.lunchpicker = (event, context, callback) => {
-  callback(null, makeReply(picker.getRandomRestaurant().name))
+module.exports.lunchpicker = async (event, context, callback) => {
+  picker.getRandomRestaurant()
+    .then(restaurant => {
+      callback(null, makeReply(restaurant.name))
+    })
 }

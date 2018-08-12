@@ -1,33 +1,28 @@
-// This is stupid and it hurts me. I just want to get this shit on AWS Lambda.
-const restaurants = [
-  {name: 'El Indio', closed: [], veto: []},
-  {name: 'La Pasadita', closed: [], veto: []},
-  {name: 'Relish', closed: [], veto: []},
-  {name: 'David\'s BBQ', closed: [], veto: []},
-  {name: 'Kebab House', closed: [], veto: []},
-  {name: 'Sweetberries', closed: [], veto: []},
-  {name: 'Waffle House', closed: [], veto: []},
-  {name: 'Bagels and Noodles', closed: [], veto: []},
-  {name: 'Momoyaki', closed: [], veto: []},
-  {name: 'Red Onion', closed: [], veto: []},
-  {name: 'Public and General', closed: [], veto: []},
-  {name: 'Steamers', closed: ['Monday'], veto: []},
-  {name: 'Abuela\'s', closed: ['Monday'], veto: []},
-  {name: 'Crane Ramen', closed: ['Monday'], veto: []},
-  {name: 'Steamers', closed: ['Monday'], veto: []},
-  {name: 'Satchel\'s', closed: ['Monday'], veto: []},
-  {name: 'Indian Cuisine', closed: ['Monday'], veto: []},
-  {name: 'Liquid Ginger', closed: ['Monday'], veto: []},
-  {name: 'Andaz', closed: ['Monday'], veto: []},
-  {name: 'Mojo Hogtown BBQ', closed: ['Monday'], veto: []},
-  {name: 'Flaco\'s', closed: ['Monday'], veto: []},
-  {name: 'Gyro Plus', closed: ['Sunday'], veto: []}
-]
+const AWS = require('aws-sdk')
+const client = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'})
+
+// Wrap the DynamoDB client scan in a promise
+const clientScan = table => {
+  return new Promise((resolve, reject) => {
+    client.scan({TableName: table}, (err, data) => {
+      if (err) {
+        reject(err)
+      }
+      resolve(data)
+    })
+  })
+}
+
+const getRestaurants = async table => {
+  const result = await clientScan(table)
+  return result.Items
+}
 
 const getRandomIndex = arr => Math.floor((Math.random() * arr.length))
 const selectRandom = arr => arr[getRandomIndex(arr)]
 
-const getRandomRestaurant = () => {
+const getRandomRestaurant = async () => {
+  const restaurants = await getRestaurants('lunch-picker-dev-restaurants')
   const dayOfWeek = getDay(new Date())
   if (dayOfWeek === 'Friday') return {name: 'Big Lou\'s'}
   return selectRandom(restaurants.filter(openToday(dayOfWeek)))
@@ -41,6 +36,7 @@ const getDay = date => {
 const openToday = day => restaurant => restaurant.closed.find(x => x === day) === undefined
 
 module.exports = {
+  getRestaurants,
   selectRandom,
   getRandomRestaurant,
   getDay,
