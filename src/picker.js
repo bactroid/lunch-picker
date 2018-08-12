@@ -1,23 +1,4 @@
-const AWS = require('aws-sdk')
-const client = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'})
-
-// Wrap the DynamoDB client scan in a promise
-const clientScan = table => {
-  return new Promise((resolve, reject) => {
-    client.scan({TableName: table}, (err, data) => {
-      if (err) {
-        reject(err)
-      }
-      resolve(data)
-    })
-  })
-}
-
-const getRestaurants = async table => {
-  const result = await clientScan(table)
-  return result.Items
-}
-
+const {getRestaurants} = require('./db')
 const getRandomIndex = arr => Math.floor((Math.random() * arr.length))
 const selectRandom = arr => arr[getRandomIndex(arr)]
 
@@ -36,7 +17,6 @@ const getDay = date => {
 const openToday = day => restaurant => restaurant.closed.find(x => x === day) === undefined
 
 module.exports = {
-  getRestaurants,
   selectRandom,
   getRandomRestaurant,
   getDay,
