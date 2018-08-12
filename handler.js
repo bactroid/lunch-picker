@@ -14,7 +14,7 @@ const makeReply = text => ({
 const selectRandomRestaurantFromTable = composeP(getRandomRestaurant, getRestaurants)
 
 module.exports.lunchpicker = (event, context, callback) => {
-  selectRandomRestaurantFromTable('lunch-picker-dev-restaurants')
+  selectRandomRestaurantFromTable(process.env.LUNCH_TABLE)
     .then(restaurant => {
       callback(null, makeReply(restaurant.name))
     })

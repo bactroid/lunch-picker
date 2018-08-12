@@ -7,6 +7,8 @@ service: lunch-picker
 provider:
   name: aws
   runtime: nodejs8.10
+  environment:
+    LUNCH_TABLE: ${self:service}-${self:provider.stage}-restaurants
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -102,7 +104,7 @@ resources:
     restaurantTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:service}-${self:provider.stage}-restaurants
+        TableName: ${self:provider.environment.LUNCH_TABLE}
         AttributeDefinitions:
           - AttributeName: restaurantId
             AttributeType: S
