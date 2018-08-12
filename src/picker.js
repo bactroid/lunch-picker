@@ -1,5 +1,4 @@
 const {compose, filter} = require('ramda')
-const {getRestaurants} = require('./db')
 
 // getRandomIndex :: [a] -> Number
 const getRandomIndex = arr => Math.floor((Math.random() * arr.length))
@@ -7,11 +6,11 @@ const getRandomIndex = arr => Math.floor((Math.random() * arr.length))
 // selectRandom :: [a] -> a
 const selectRandom = arr => arr[getRandomIndex(arr)]
 
-// getRandomRestaurant :: () -> Promise Restaurant
-const getRandomRestaurant = async () =>
+// getRandomRestaurant :: Promise [Restaurant] -> Promise Restaurant
+const getRandomRestaurant = async restaurants =>
   today === 'Friday'
     ? {name: 'Big Lou\'s'}
-    : selectRandomRestaurantOpenToday(await getRestaurants('lunch-picker-dev-restaurants'))
+    : selectRandomRestaurantOpenToday(await restaurants)
 
 // days :: [DayOfWeek]
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
