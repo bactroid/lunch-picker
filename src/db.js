@@ -14,7 +14,7 @@ const clientScan = table => {
   })
 }
 
-// getRestaurants :: TableName -> [Restaurants]
+// getRestaurants :: TableName -> Promise [Restaurants]
 const getRestaurants = async table => prop('Items', await clientScan(table))
 
 module.exports = {

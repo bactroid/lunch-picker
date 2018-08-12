@@ -7,7 +7,7 @@ const getRandomIndex = arr => Math.floor((Math.random() * arr.length))
 // selectRandom :: [a] -> a
 const selectRandom = arr => arr[getRandomIndex(arr)]
 
-// getRandomRestaurant :: () -> Restaurant
+// getRandomRestaurant :: () -> Promise Restaurant
 const getRandomRestaurant = async () =>
   today === 'Friday'
     ? {name: 'Big Lou\'s'}
