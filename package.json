@@ -22,6 +22,7 @@
   "homepage": "https://github.com/bactroid/lunch-picker#readme",
   "dependencies": {
     "aws-sdk": "^2.291.0",
+    "motherbase": "^1.0.2",
     "ramda": "^0.25.0",
     "serverless-offline": "^3.25.5"
   }
