@@ -1,4 +1,5 @@
 const {compose, filter} = require('ramda')
+const {intersection} = require('motherbase')
 
 // DayOfWeek :: String ( Monday | Tuesday | Wednesday | Thursday | Friday
 //                     | Saturday | Sunday)
@@ -7,6 +8,8 @@ const {compose, filter} = require('ramda')
 //                      , closed :: [DayOfWeek]
 //                      , veto :: [String]
 //                      }
+
+// User :: String
 
 // getRandomIndex :: [a] -> Number
 const getRandomIndex = arr => Math.floor((Math.random() * arr.length))
@@ -38,9 +41,19 @@ const openToday = openOnDay(today)
 // selectRandomRestaurantOpenToday :: [Restaurant] -> Restaurant
 const selectRandomRestaurantOpenToday = compose(selectRandom, filter(openToday))
 
+// vetoedByAttendees :: [User] -> Restaurant -> Boolean
+const notVetoedByAttendees = attendees => restaurant =>
+  intersection(attendees)(restaurant.veto).length === 0
+
+// removeVetoedChoices :: [User] -> [Restaruant] -> [Restaurant]
+const removeVetoedChoices = attendees => restaurants =>
+  restaurants.filter(notVetoedByAttendees(attendees))
+
 module.exports = {
   selectRandom,
   getRandomRestaurant,
   getDay,
-  openOnDay
+  openOnDay,
+  removeVetoedChoices,
+  intersection
 }

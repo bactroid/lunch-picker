@@ -15,3 +15,19 @@ describe('getDay', () => {
     expect(picker.getDay(day)).toEqual('Thursday')
   })
 })
+
+describe('removeVetoedChoices', () => {
+  test('removes vetoed restaruants from list', () => {
+    const attendees = ['alice', 'bob', 'carol']
+
+    const restaurants = [
+      { name: 'The Max', closed: [], veto: [] },
+      { name: 'Dockside Bar', closed: [], veto: ['carol'] },
+      { name: 'New Dehli Deli', closed: [], veto: ['bob'] }
+    ]
+
+    const expected = [ { name: 'The Max', closed: [], veto: [] } ]
+
+    expect(picker.removeVetoedChoices(attendees)(restaurants)).toEqual(expected)
+  })
+})
