@@ -1,6 +1,7 @@
-const {composeP} = require('ramda')
+const {composeP, compose, prop} = require('ramda')
+const {parse} = require('query-string')
 const {getRestaurants} = require('./src/db')
-const {getRandomRestaurant} = require('./src/picker')
+const {getRandomRestaurant, parseAttendeeList, removeVetoedChoices} = require('./src/picker')
 
 const errorMessage = 'I\'m having trouble. Maybe just go for coffee?'
 
@@ -12,10 +13,15 @@ const makeReply = text => ({
   })
 })
 
-// selectRestaurant :: TableName -> Promise Restaurant
-const selectRandomRestaurantFromTable = composeP(getRandomRestaurant, getRestaurants)
-
 module.exports.lunchpicker = (event, context, callback) => {
+  // parseAttendeesFromFormData :: LambdaEvent -> [Attendee]
+  const parseAttendeesFromFormData = compose(parseAttendeeList, prop('text'), parse, prop('body'))
+
+  const attendees = parseAttendeesFromFormData(event)
+
+  // selectRandomRestaurantFromTable :: TableName -> Promise Restaurant
+  const selectRandomRestaurantFromTable = composeP(getRandomRestaurant, removeVetoedChoices(attendees), getRestaurants)
+
   selectRandomRestaurantFromTable(process.env.LUNCH_TABLE)
     .then(restaurant => {
       callback(null, makeReply(restaurant.name))
