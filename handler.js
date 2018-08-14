@@ -17,7 +17,9 @@ module.exports.lunchpicker = (event, context, callback) => {
   // parseAttendeesFromFormData :: LambdaEvent -> [Attendee]
   const parseAttendeesFromFormData = compose(parseAttendeeList, prop('text'), parse, prop('body'))
 
-  const attendees = parseAttendeesFromFormData(event)
+  const attendees = event.body
+    ? parseAttendeesFromFormData(event)
+    : []
 
   // selectRandomRestaurantFromTable :: TableName -> Promise Restaurant
   const selectRandomRestaurantFromTable = composeP(getRandomRestaurant, removeVetoedChoices(attendees), getRestaurants)
