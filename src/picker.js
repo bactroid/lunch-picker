@@ -49,11 +49,19 @@ const notVetoedByAttendees = attendees => restaurant =>
 const removeVetoedChoices = attendees => restaurants =>
   restaurants.filter(notVetoedByAttendees(attendees))
 
+// parseAttendeeList :: String -> [User]
+const parseAttendeeList = input =>
+  input
+    .trim()
+    .split(' ')
+    .filter(s => s[0] === '@')
+    .map(s => s.slice(1))
+
 module.exports = {
   selectRandom,
   getRandomRestaurant,
   getDay,
   openOnDay,
   removeVetoedChoices,
-  intersection
+  parseAttendeeList
 }

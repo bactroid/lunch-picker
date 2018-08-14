@@ -31,3 +31,17 @@ describe('removeVetoedChoices', () => {
     expect(picker.removeVetoedChoices(attendees)(restaurants)).toEqual(expected)
   })
 })
+
+describe('parseAttendeeList', () => {
+  test('converts input string into list of users', () => {
+    const input = '@alice @bob @carol '
+    const expected = ['alice', 'bob', 'carol']
+    expect(picker.parseAttendeeList(input)).toEqual(expected)
+  })
+
+  test('handles input with no valid users', () => {
+    const input = 'no usernames entered lol'
+    const expected = []
+    expect(picker.parseAttendeeList(input)).toEqual(expected)
+  })
+})
