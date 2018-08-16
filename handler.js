@@ -7,6 +7,9 @@ const errorMessage = 'I\'m having trouble. Maybe just go for coffee?'
 
 const makeReply = text => ({
   statusCode: 200,
+  headers: {
+    'Access-Control-Allow-Origin': 'https://bactroid.github.io'
+  },
   body: JSON.stringify({
     response_type: 'in_channel',
     text
